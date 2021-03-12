@@ -55,6 +55,8 @@ class NoteDB {
                         NoteDB::class.java,
                         "note_database"
                     )
+                        //estratégia de destruição
+                        //.fallbackToDestrutiveMigration()
                         .addCallback(WordDatabaseCallback(scope))
                         .build()
                         INSTANCE = instance
