@@ -25,7 +25,15 @@ class NoteDB {
                 super.onOpen(db)
                 INSTANCE?.let { database ->
                     scope.launch {
-                        var noteDao = database.noteDao() }
+                        var noteDao = database.noteDao()
+
+                        noteDao.deleteAll()
+
+                        var note = Note(1, "Título Nota 1", "Subtitulo Nota 1", "Conteúdo Nota 1")
+                        noteDao.insert(note)
+                        note = Note(2, "Título Nota 2", "Subtitulo Nota 2", "Conteúdo Nota 2")
+                        noteDao.insert(note)
+                    }
                 }
             }
         }
