@@ -9,5 +9,6 @@ import androidx.room.PrimaryKey
 class Note (
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
     @ColumnInfo(name = "title") val title: String,
+    @ColumnInfo(name = "subtitle") val subtitle: String,
     @ColumnInfo(name = "content") val content: String
 )
