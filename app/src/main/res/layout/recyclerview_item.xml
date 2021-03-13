@@ -1,18 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp">
+    android:background="#e8fffc"
+    android:layout_margin="10dp"
+   >
 
     <TextView
-        android:id="@+id/textView"
-        android:padding="20dp"
-        android:layout_width="match_parent"
+        android:id="@+id/textViewTitle"
+        android:layout_margin="10dp"
+        android:text="Title"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_blue_dark"
+        />
+    <TextView
+        android:id="@+id/textViewSubtitle"
+        android:text="Subtitle"
+        android:layout_below="@id/textViewTitle"
+        android:layout_alignLeft="@id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:id="@+id/textViewContent"
+        android:text="Content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/textViewSubtitle"
+        android:layout_alignLeft="@id/textViewSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         />
 
 
-</LinearLayout>
+</RelativeLayout>

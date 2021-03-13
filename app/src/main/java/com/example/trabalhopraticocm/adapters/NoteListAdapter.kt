@@ -23,10 +23,10 @@ class NoteListAdapter : ListAdapter<Note, NoteViewHolder>(WORDS_COMPARATOR) {
     }
 
     class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val wordItemView: TextView = itemView.findViewById(R.id.textView)
+        private val noteItemView: TextView = itemView.findViewById(R.id.textViewTitle)
 
         fun bind(text: String?) {
-            wordItemView.text = text
+            noteItemView.text = text
         }
 
         companion object {

@@ -73,7 +73,7 @@ abstract class NoteDB : RoomDatabase() {
 
             var note = Note(1, title = "title", subtitle = "subtitle", content = "content")
             noteDao.insert(note)
-            note = Note(2, title = "title 2", subtitle = "subtitle 2", content = "content")
+            note = Note(2, title = "title 2", subtitle = "subtitle 2", content = "content 2")
             noteDao.insert(note)
         }
     }

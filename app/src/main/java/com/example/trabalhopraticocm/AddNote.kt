@@ -10,12 +10,16 @@ import android.widget.EditText
 
 class AddNote : AppCompatActivity() {
     private lateinit var editTitleView: EditText
+    private lateinit var editSubtitleView: EditText
+    private lateinit var editContentView: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_note)
 
         editTitleView = findViewById(R.id.edit_title)
+        editSubtitleView = findViewById(R.id.edit_subtitle)
+        editContentView = findViewById(R.id.edit_content)
 
         val button = findViewById<Button>(R.id.button_save)
         button.setOnClickListener{
