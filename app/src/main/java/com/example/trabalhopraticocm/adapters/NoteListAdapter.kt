@@ -1,52 +1,46 @@
 package com.example.trabalhopraticocm.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trabalhopraticocm.R
 import com.example.trabalhopraticocm.adapters.NoteListAdapter.NoteViewHolder
 import com.example.trabalhopraticocm.entities.Note
 
-class NoteListAdapter : ListAdapter<Note, NoteViewHolder>(WORDS_COMPARATOR) {
+class NoteListAdapter internal constructor(
+    context: Context
+) : RecyclerView.Adapter<NoteListAdapter.NoteViewHolder>() {
+    private val inflater: LayoutInflater = LayoutInflater.from(context)
+    private var notes = emptyList<Note>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
-        return NoteViewHolder.create(parent)
-    }
-
-    override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-        val current = getItem(position)
-        holder.bind(current.title)
+        val itemView = inflater.inflate(R.layout.recyclerview_item, parent, false)
+        return NoteViewHolder(itemView)
     }
 
     class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val noteItemView: TextView = itemView.findViewById(R.id.textViewTitle)
+        val noteItemViewTitle: TextView = itemView.findViewById(R.id.textViewTitle)
+        val noteItemViewSubtitle: TextView = itemView.findViewById(R.id.textViewSubtitle)
+        val noteItemViewContent: TextView = itemView.findViewById(R.id.textViewContent)
 
-        fun bind(text: String?) {
-            noteItemView.text = text
-        }
+    }
+    override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
+        val current = notes[position]
 
-        companion object {
-            fun create(parent: ViewGroup): NoteViewHolder {
-                val view: View = LayoutInflater.from(parent.context)
-                        .inflate(R.layout.recyclerview_item, parent, false)
-                return NoteViewHolder(view)
-            }
-        }
+        holder.noteItemViewTitle.text = current.title
+        holder.noteItemViewSubtitle.text = current.subtitle
+        holder.noteItemViewContent.text = current.content
+
     }
 
-    companion object {
-        private val WORDS_COMPARATOR = object : DiffUtil.ItemCallback<Note>() {
-            override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
-                return oldItem === newItem
-            }
 
-            override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
-                return oldItem.title == newItem.title
-            }
-        }
+    internal fun setNotes(notes: List<Note>) {
+        this.notes = notes
+        notifyDataSetChanged()
     }
+
+    override fun getItemCount() = notes.size
 }

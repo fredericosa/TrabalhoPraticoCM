@@ -6,75 +6,63 @@ import androidx.room.Room
 import androidx.room.Room.databaseBuilder
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.sqlite.db.SupportSQLiteOpenHelper
 import com.example.trabalhopraticocm.dao.NoteDao
 import com.example.trabalhopraticocm.entities.Note
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [Note::class], version = 1)
-abstract class NoteDB : RoomDatabase() {
+@Database(entities = arrayOf(Note::class), version = 1, exportSchema = false)
+public abstract class NoteDB : RoomDatabase() {
 
     abstract fun noteDao(): NoteDao
+
+    private class WordDatabaseCallback(
+        private val scope: CoroutineScope
+    ) : RoomDatabase.Callback() {
+
+        override fun onOpen(db: SupportSQLiteDatabase) {
+            super.onOpen(db)
+            INSTANCE?.let { database ->
+                scope.launch {
+                    var noteDao = database.noteDao()
+                    //Delete all content here.
+                    noteDao.deleteAll()
+
+                    //Add sample words.
+                    var note = Note(1, "Titulo", "Subtitulo", "Conteudo")
+                        noteDao.insert(note)
+                        note = Note(2, "Titulo 2", "Subtitulo 2", "Conteudo 2")
+                        noteDao.insert(note)
+
+                }
+            }
+        }
+    }
 
     companion object {
         @Volatile
         private var INSTANCE: NoteDB? = null
 
-        fun getDatabase(
-                context: Context,
-                scope: CoroutineScope
-        ): NoteDB {
-            // if the INSTANCE is not null, then return it,
-            // if it is, then create the database
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        NoteDB::class.java,
-                        "note_database"
-                )
-                        // Wipes and rebuilds instead of migrating if no Migration object.
-                        // Migration is not part of this codelab.
-                        .fallbackToDestructiveMigration()
-                        .addCallback(NoteDatabaseCallback(scope))
-                        .build()
-                INSTANCE = instance
-                // return instance
-                instance
-            }
-        }
-
-        private class NoteDatabaseCallback(
-                private val scope: CoroutineScope
-        ) : RoomDatabase.Callback() {
-            /**
-             * Override the onCreate method to populate the database.
-             */
-            override fun onCreate(db: SupportSQLiteDatabase) {
-                super.onCreate(db)
-                // If you want to keep the data through app restarts,
-                // comment out the following line.
-                INSTANCE?.let { database ->
-                    scope.launch(Dispatchers.IO) {
-                        populateDatabase(database.noteDao())
-                    }
+        fun getDatabase(context: Context, scope: CoroutineScope): NoteDB {
+            val tempInstance = INSTANCE
+            if (tempInstance != null) {
+                return tempInstance
                 }
+                synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    NoteDB::class.java,
+                    "notes_database",
+                    )
+                    //.fallbackToDestructiveMigration()
+                    .addCallback(WordDatabaseCallback(scope))
+                    .build()
+
+                    INSTANCE = instance
+                    return instance
             }
-        }
-
-        /**
-         * Populate the database in a new coroutine.
-         * If you want to start with more words, just add them.
-         */
-        suspend fun populateDatabase(noteDao: NoteDao) {
-            // Start the app with a clean database every time.
-            // Not needed if you only populate on creation.
-            noteDao.deleteAll()
-
-            var note = Note(1, title = "title", subtitle = "subtitle", content = "content")
-            noteDao.insert(note)
-            note = Note(2, title = "title 2", subtitle = "subtitle 2", content = "content 2")
-            noteDao.insert(note)
         }
     }
 }
