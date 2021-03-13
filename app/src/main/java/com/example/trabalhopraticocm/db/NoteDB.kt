@@ -9,60 +9,72 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.trabalhopraticocm.dao.NoteDao
 import com.example.trabalhopraticocm.entities.Note
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class NoteDB {
-    // Annotates class to be a Room Database with a table (entity) of the Word class
-    @Database(entities = arrayOf(Note::class), version = 1, exportSchema = false)
-    public abstract class NoteDB : RoomDatabase() {
+@Database(entities = [Note::class], version = 1)
+abstract class NoteDB : RoomDatabase() {
 
-        abstract fun noteDao(): NoteDao
+    abstract fun noteDao(): NoteDao
 
-        private class WordDatabaseCallback(
-            private val scope: CoroutineScope
+    companion object {
+        @Volatile
+        private var INSTANCE: NoteDB? = null
+
+        fun getDatabase(
+                context: Context,
+                scope: CoroutineScope
+        ): NoteDB {
+            // if the INSTANCE is not null, then return it,
+            // if it is, then create the database
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        NoteDB::class.java,
+                        "note_database"
+                )
+                        // Wipes and rebuilds instead of migrating if no Migration object.
+                        // Migration is not part of this codelab.
+                        .fallbackToDestructiveMigration()
+                        .addCallback(NoteDatabaseCallback(scope))
+                        .build()
+                INSTANCE = instance
+                // return instance
+                instance
+            }
+        }
+
+        private class NoteDatabaseCallback(
+                private val scope: CoroutineScope
         ) : RoomDatabase.Callback() {
-            override fun onOpen(db: SupportSQLiteDatabase) {
-                super.onOpen(db)
+            /**
+             * Override the onCreate method to populate the database.
+             */
+            override fun onCreate(db: SupportSQLiteDatabase) {
+                super.onCreate(db)
+                // If you want to keep the data through app restarts,
+                // comment out the following line.
                 INSTANCE?.let { database ->
-                    scope.launch {
-                        var noteDao = database.noteDao()
-
-                        noteDao.deleteAll()
-
-                        var note = Note(1, "Título Nota 1", "Subtitulo Nota 1", "Conteúdo Nota 1")
-                        noteDao.insert(note)
-                        note = Note(2, "Título Nota 2", "Subtitulo Nota 2", "Conteúdo Nota 2")
-                        noteDao.insert(note)
+                    scope.launch(Dispatchers.IO) {
+                        populateDatabase(database.noteDao())
                     }
                 }
             }
         }
 
-        companion object {
-            // Singleton prevents multiple instances of database opening at the
-            // same time.
-            @Volatile
-            private var INSTANCE: NoteDB? = null
+        /**
+         * Populate the database in a new coroutine.
+         * If you want to start with more words, just add them.
+         */
+        suspend fun populateDatabase(noteDao: NoteDao) {
+            // Start the app with a clean database every time.
+            // Not needed if you only populate on creation.
+            noteDao.deleteAll()
 
-            fun getDatabase(context: Context, scope: CoroutineScope): NoteDB {
-                val tempInstance = INSTANCE
-                if (tempInstance != null) {
-                    return tempInstance
-                }
-                synchronized(this) {
-                    val instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        NoteDB::class.java,
-                        "note_database"
-                    )
-                        //estratégia de destruição
-                        //.fallbackToDestrutiveMigration()
-                        .addCallback(WordDatabaseCallback(scope))
-                        .build()
-                        INSTANCE = instance
-                    return instance
-                }
-            }
+            var note = Note(1, title = "title", subtitle = "subtitle", content = "content")
+            noteDao.insert(note)
+            note = Note(2, title = "title 2", subtitle = "subtitle 2", content = "content")
+            noteDao.insert(note)
         }
     }
 }
