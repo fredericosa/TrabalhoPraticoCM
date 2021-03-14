@@ -14,4 +14,8 @@ class NoteRepository(private val noteDao: NoteDao) {
     suspend fun insert(note: Note) {
         noteDao.insert(note)
     }
+
+    fun getNoteById(id: Int): LiveData<List<Note>> {
+        return noteDao.getNoteById(id)
+    }
 }

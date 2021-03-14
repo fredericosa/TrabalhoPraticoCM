@@ -47,12 +47,12 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            data?.getStringExtra(AddNote.EXTRA_REPLY_CONTENT)?.let {
-                val note = Note(title = "Título: " + it, content ="Observação: " + it)
-            }
-            data?.getStringExtra(AddNote.EXTRA_REPLY_TITLE)?.let {
-                val note = Note(title = "Título: " + it, content ="Observação: " + it)
+            data?.getStringExtra((AddNote.EXTRA_REPLY_TITLE))?.let {
+                var titulo = data?.getStringExtra(AddNote.EXTRA_REPLY_TITLE).toString()
+                var content = data?.getStringExtra(AddNote.EXTRA_REPLY_CONTENT).toString()
+                var note = Note(title = "Título: " + titulo, content = "Observação: " + content)
                 noteViewModel.insert(note)
+                Toast.makeText(this, "Nota Guardada", Toast.LENGTH_SHORT).show()
             }
         } else {
             Toast.makeText(
