@@ -47,8 +47,11 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            data?.getStringExtra(AddNote.EXTRA_REPLY)?.let {
-                val note = Note(title=it, subtitle="subtitulo", content="conteudo")
+            data?.getStringExtra(AddNote.EXTRA_REPLY_CONTENT)?.let {
+                val note = Note(title = "Título: " + it, content ="Observação: " + it)
+            }
+            data?.getStringExtra(AddNote.EXTRA_REPLY_TITLE)?.let {
+                val note = Note(title = "Título: " + it, content ="Observação: " + it)
                 noteViewModel.insert(note)
             }
         } else {

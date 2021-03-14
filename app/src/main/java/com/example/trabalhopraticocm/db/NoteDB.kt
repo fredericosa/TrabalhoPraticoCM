@@ -28,14 +28,14 @@ public abstract class NoteDB : RoomDatabase() {
                 scope.launch {
                     var noteDao = database.noteDao()
                     //Delete all content here.
-                    noteDao.deleteAll()
+                    /*noteDao.deleteAll()
 
                     //Add sample words.
-                    var note = Note(1, "Titulo", "Subtitulo", "Conteudo")
+                    var note = Note(1, "Titulo", "Conteudo")
                         noteDao.insert(note)
-                        note = Note(2, "Titulo 2", "Subtitulo 2", "Conteudo 2")
+                        note = Note(2, "Titulo 2", "Conteudo 2")
                         noteDao.insert(note)
-
+                     */
                 }
             }
         }

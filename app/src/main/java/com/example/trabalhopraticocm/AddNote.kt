@@ -10,7 +10,6 @@ import android.widget.EditText
 
 class AddNote : AppCompatActivity() {
     private lateinit var editTitleView: EditText
-    private lateinit var editSubtitleView: EditText
     private lateinit var editContentView: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,26 +17,18 @@ class AddNote : AppCompatActivity() {
         setContentView(R.layout.activity_add_note)
 
         editTitleView = findViewById(R.id.edit_title)
-        editSubtitleView = findViewById(R.id.edit_subtitle)
         editContentView = findViewById(R.id.edit_content)
 
         val button = findViewById<Button>(R.id.button_save)
         button.setOnClickListener{
             val replyIntent = Intent()
-            val replyIntent2 = Intent()
-            val replyIntent3 = Intent()
-            if (TextUtils.isEmpty(editTitleView.text))
-            else if (TextUtils.isEmpty(editSubtitleView.text))
-            else if (TextUtils.isEmpty(editContentView.text))
-            {
+            if (TextUtils.isEmpty(editTitleView.text) && TextUtils.isEmpty(editContentView.text)){
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
                 val title = editTitleView.text.toString()
-                val subtitle = editSubtitleView.text.toString()
+                replyIntent.putExtra(EXTRA_REPLY_TITLE, title)
                 val content = editContentView.text.toString()
-                replyIntent.putExtra(EXTRA_REPLY, title)
-                replyIntent2.putExtra(EXTRA_REPLY, subtitle)
-                replyIntent3.putExtra(EXTRA_REPLY, content)
+                replyIntent.putExtra(EXTRA_REPLY_CONTENT, content)
                 setResult(Activity.RESULT_OK, replyIntent)
             }
             finish()
@@ -45,6 +36,7 @@ class AddNote : AppCompatActivity() {
 
         }
         companion object {
-        const val EXTRA_REPLY = "com.example.android.notelistsql.REPLY"
+        const val EXTRA_REPLY_TITLE = "title"
+        const val EXTRA_REPLY_CONTENT = "content"
     }
 }
