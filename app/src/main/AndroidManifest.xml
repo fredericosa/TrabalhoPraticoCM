@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TrabalhoPraticoCM">
-        <activity android:name=".AddNote"></activity>
+        <activity android:name=".EditNote"></activity>
+        <activity android:name=".AddNote" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,4 +21,3 @@
     </application>
 
 </manifest>
-

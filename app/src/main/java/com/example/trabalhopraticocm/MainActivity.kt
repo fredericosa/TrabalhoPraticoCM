@@ -4,6 +4,7 @@ package com.example.trabalhopraticocm
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -31,8 +32,8 @@ class MainActivity : AppCompatActivity() {
 
        //view model
        noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
-       noteViewModel.allNotes.observe(this, {notes ->
-           notes?.let{adapter.setNotes(it)}
+       noteViewModel.allNotes.observe(this, { notes ->
+           notes?.let { adapter.setNotes(it) }
        })
 
        //Fab
@@ -47,18 +48,16 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            data?.getStringExtra((AddNote.EXTRA_REPLY_TITLE))?.let {
                 var titulo = data?.getStringExtra(AddNote.EXTRA_REPLY_TITLE).toString()
                 var content = data?.getStringExtra(AddNote.EXTRA_REPLY_CONTENT).toString()
                 var note = Note(title = "Título: " + titulo, content = "Observação: " + content)
                 noteViewModel.insert(note)
                 Toast.makeText(this, "Nota Guardada", Toast.LENGTH_SHORT).show()
-            }
         } else {
             Toast.makeText(
-                applicationContext,
-                "Nota Vazia: não inserida",
-                Toast.LENGTH_LONG).show()
+                    applicationContext,
+                    "Nota Vazia: não inserida",
+                    Toast.LENGTH_LONG).show()
         }
     }
 }

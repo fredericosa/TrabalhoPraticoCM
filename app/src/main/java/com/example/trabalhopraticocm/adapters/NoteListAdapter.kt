@@ -33,8 +33,6 @@ class NoteListAdapter internal constructor(
         holder.noteItemViewContent.text = current.content
 
     }
-
-
     internal fun setNotes(notes: List<Note>) {
         this.notes = notes
         notifyDataSetChanged()
