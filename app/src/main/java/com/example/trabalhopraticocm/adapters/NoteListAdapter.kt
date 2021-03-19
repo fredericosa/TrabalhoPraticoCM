@@ -6,13 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.trabalhopraticocm.CellClickListener
 import com.example.trabalhopraticocm.R
 import com.example.trabalhopraticocm.adapters.NoteListAdapter.NoteViewHolder
 import com.example.trabalhopraticocm.entities.Note
 
-class NoteListAdapter internal constructor(
-    context: Context
-) : RecyclerView.Adapter<NoteListAdapter.NoteViewHolder>() {
+class NoteListAdapter internal constructor(context: Context, private val cellClickListener: CellClickListener) : RecyclerView.Adapter<NoteListAdapter.NoteViewHolder>() {
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var notes = emptyList<Note>()
 
@@ -32,6 +31,10 @@ class NoteListAdapter internal constructor(
         holder.noteItemViewTitle.text = current.title
         holder.noteItemViewContent.text = current.content
 
+        holder.itemView.setOnClickListener {
+            cellClickListener.onCellClickListener(current)
+        }
+
     }
     internal fun setNotes(notes: List<Note>) {
         this.notes = notes
@@ -39,4 +42,4 @@ class NoteListAdapter internal constructor(
     }
 
     override fun getItemCount() = notes.size
-}
+    }
