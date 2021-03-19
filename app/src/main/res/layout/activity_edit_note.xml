@@ -28,14 +28,14 @@
         android:textSize="18sp" />
 
     <Button
-        android:minHeight="40dp"
         android:id="@+id/button_update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/black"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:text="Editar"
-        android:layout_margin="15dp"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        app:backgroundTint="@android:color/holo_green_dark"/>
 
     <Button
         android:id="@+id/button_remove"
@@ -43,10 +43,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:minHeight="40dp"
         android:text="Remover"
         android:textColor="@android:color/white"
-        app:backgroundTint="#FF0000" />
+        app:backgroundTint="@android:color/holo_red_light" />
 
 
 </LinearLayout>

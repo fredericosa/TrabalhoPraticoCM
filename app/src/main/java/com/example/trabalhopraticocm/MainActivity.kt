@@ -25,9 +25,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
         private val newWordActivityRequestCode = 1
         private val UpdateNoteActivityRequestCode = 2
 
-
-
-
         override fun onCreate(savedInstanceState: Bundle?) {
        super.onCreate(savedInstanceState)
        setContentView(R.layout.activity_main)
@@ -59,6 +56,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
         if (resultCode == Activity.RESULT_OK && data != null && data.action == "REMOVE") {
             var id = Integer.parseInt(data?.getStringExtra(PARAM_ID))
             noteViewModel.deleteById(id)
+            Toast.makeText(this, "Nota eliminada.", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -69,11 +67,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
             var content = data?.getStringExtra(AddNote.EXTRA_REPLY_CONTENT).toString()
             var note = Note(title = titulo, content = content)
             noteViewModel.insert(note)
-            Toast.makeText(this, "Nota Guardada", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Nota guardada.", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(
                     applicationContext,
-                    "Nota Vazia: não inserida",
+                    "Campo(s) Vazio(s): não inserido.",
                     Toast.LENGTH_LONG).show()
             }
         } else if (requestCode == UpdateNoteActivityRequestCode) {
@@ -82,8 +80,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
                 var content = data?.getStringExtra(PARAM2_CONTENT).toString()
                 var id = Integer.parseInt(data?.getStringExtra(PARAM_ID))
                 noteViewModel.updateById(titulo, content, id)
+                Toast.makeText(applicationContext, "Nota alterada.", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(applicationContext, "Campo Vazio: não inserido", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Campo(s) Vazio(s): não alterado.", Toast.LENGTH_SHORT).show()
             }
         }
     }
