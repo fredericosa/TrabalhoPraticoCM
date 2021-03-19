@@ -19,6 +19,9 @@ interface NoteDao {
     @Query("DELETE FROM note_table")
     suspend fun deleteAll()
 
-    @Query("SELECT * FROM note_table WHERE id == :id")
-    fun getNoteById(id: Int): LiveData<List<Note>>
+    @Query("DELETE FROM note_table WHERE id == :id")
+    fun deleteById(id: Int)
+
+    @Query("UPDATE note_table SET title=:title, content=:content WHERE id == :id")
+    suspend fun updateById(title: String, content: String, id: Int)
 }

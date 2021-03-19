@@ -15,7 +15,10 @@ class NoteRepository(private val noteDao: NoteDao) {
         noteDao.insert(note)
     }
 
-    fun getNoteById(id: Int): LiveData<List<Note>> {
-        return noteDao.getNoteById(id)
+    fun deleteById(id: Int) {
+        noteDao.deleteById(id)
+    }
+    suspend fun updateById(title: String, content: String, id: Int){
+        noteDao.updateById(title, content, id)
     }
 }

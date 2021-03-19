@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/edit_title"
+        android:id="@+id/update_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="48dp"
@@ -16,7 +17,7 @@
         android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/edit_content"
+        android:id="@+id/update_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="48dp"
@@ -28,12 +29,24 @@
 
     <Button
         android:minHeight="40dp"
-        android:id="@+id/button_save"
+        android:id="@+id/button_update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/black"
         android:text="Editar"
         android:layout_margin="15dp"
         android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/button_remove"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:minHeight="40dp"
+        android:text="Remover"
+        android:textColor="@android:color/white"
+        app:backgroundTint="#FF0000" />
+
 
 </LinearLayout>

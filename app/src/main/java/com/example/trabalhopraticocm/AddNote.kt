@@ -25,6 +25,8 @@ class AddNote : AppCompatActivity() {
             if (TextUtils.isEmpty(editTitleView.text) && TextUtils.isEmpty(editContentView.text)){
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
+                val id = editTitleView.id
+                replyIntent.putExtra(EXTRA_REPLY_ID, id)
                 val title = editTitleView.text.toString()
                 replyIntent.putExtra(EXTRA_REPLY_TITLE, title)
                 val content = editContentView.text.toString()
@@ -36,6 +38,7 @@ class AddNote : AppCompatActivity() {
 
         }
         companion object {
+        const val EXTRA_REPLY_ID = "id"
         const val EXTRA_REPLY_TITLE = "title"
         const val EXTRA_REPLY_CONTENT = "content"
     }
