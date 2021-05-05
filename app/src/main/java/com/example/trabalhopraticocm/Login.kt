@@ -22,7 +22,7 @@ class Login : AppCompatActivity() {
     private lateinit var usernameInput: EditText
     private lateinit var passwordInput: EditText
     private lateinit var checkboxInput: CheckBox
-    private lateinit var shared_preferences: SharedPreferences
+    private lateinit var preferences: SharedPreferences
     private var lembrar = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,8 +32,8 @@ class Login : AppCompatActivity() {
         passwordInput = findViewById(R.id.password)
         checkboxInput = findViewById(R.id.lembrar)
 
-        shared_preferences = getSharedPreferences("shared_preferences", Context.MODE_PRIVATE)
-        lembrar = shared_preferences.getBoolean("lembrar", false)
+        preferences = getSharedPreferences("preferences", Context.MODE_PRIVATE)
+        lembrar = preferences.getBoolean("lembrar", false)
 
         if(lembrar){
             val intent = Intent(this@Login, Menu::class.java)
@@ -59,12 +59,12 @@ class Login : AppCompatActivity() {
                         if(c.status == "false"){
                             Toast.makeText(this@Login, c.MSG, Toast.LENGTH_LONG).show()
                         }else{
-                            val shared_preferences_edit : SharedPreferences.Editor = shared_preferences.edit()
-                            shared_preferences_edit.putString("username", username)
-                            shared_preferences_edit.putString("password", password)
-                            shared_preferences_edit.putInt("id", c.id)
-                            shared_preferences_edit.putBoolean("lembrar", checked_remember)
-                            shared_preferences_edit.apply()
+                            val preferences_edit : SharedPreferences.Editor = preferences.edit()
+                            preferences_edit.putString("username", username)
+                            preferences_edit.putString("password", password)
+                            preferences_edit.putInt("id", c.id)
+                            preferences_edit.putBoolean("lembrar", checked_remember)
+                            preferences_edit.apply()
 
                             val intent = Intent(this@Login, Menu::class.java)
                             startActivity(intent)

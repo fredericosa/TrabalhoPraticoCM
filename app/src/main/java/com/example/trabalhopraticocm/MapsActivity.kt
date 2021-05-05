@@ -23,7 +23,7 @@ import retrofit2.Response
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
-    private lateinit var shared_preferences: SharedPreferences
+    private lateinit var preferences: SharedPreferences
     private lateinit var  reports: List<Report>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,12 +33,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        shared_preferences = getSharedPreferences("shared_preferences", Context.MODE_PRIVATE)
+        preferences = getSharedPreferences("preferences", Context.MODE_PRIVATE)
 
         val request = ServiceBuilder.buildService(EndPoints::class.java)
         val call = request.getReports()
         var coordenadas: LatLng
-        val user_id = shared_preferences.getInt("id", 0)
+        val user_id = preferences.getInt("id", 0)
 
         call.enqueue(object : Callback<List<Report>> {
             override fun onResponse(call: Call<List<Report>>, response: Response<List<Report>>){
