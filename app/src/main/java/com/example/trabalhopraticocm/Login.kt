@@ -19,18 +19,18 @@ import retrofit2.Response
 
 class Login : AppCompatActivity() {
 
-    private lateinit var editUsernameView: EditText
-    private lateinit var editPasswordView: EditText
-    private lateinit var checkboxRemeber: CheckBox
+    private lateinit var usernameInput: EditText
+    private lateinit var passwordInput: EditText
+    private lateinit var checkboxInput: CheckBox
     private lateinit var shared_preferences: SharedPreferences
     private var lembrar = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        editUsernameView = findViewById(R.id.username)
-        editPasswordView = findViewById(R.id.password)
-        checkboxRemeber = findViewById(R.id.lembrar)
+        usernameInput = findViewById(R.id.username)
+        passwordInput = findViewById(R.id.password)
+        checkboxInput = findViewById(R.id.lembrar)
 
         shared_preferences = getSharedPreferences("shared_preferences", Context.MODE_PRIVATE)
         lembrar = shared_preferences.getBoolean("lembrar", false)
@@ -44,17 +44,17 @@ class Login : AppCompatActivity() {
 
     fun login(view: View) {
         val request = ServiceBuilder.buildService(EndPoints::class.java)
-        val username = editUsernameView.text.toString()
-        val password = editPasswordView.text.toString()
-        val checked_remember: Boolean = checkboxRemeber.isChecked
+        val username = usernameInput.text.toString()
+        val password = passwordInput.text.toString()
+        val checked_remember: Boolean = checkboxInput.isChecked
         val call = request.login(username = username, password = password)
 
         call.enqueue(object : Callback<OutputLogin> {
             override fun onResponse(call: Call<OutputLogin>, response: Response<OutputLogin>){
                 if (response.isSuccessful){
                     val c: OutputLogin = response.body()!!
-                    if(TextUtils.isEmpty(editUsernameView.text) || TextUtils.isEmpty(editPasswordView.text)) {
-                        Toast.makeText(this@Login, "Erro ao fazer login", Toast.LENGTH_LONG).show()
+                    if(TextUtils.isEmpty(usernameInput.text) || TextUtils.isEmpty(passwordInput.text)) {
+                        Toast.makeText(this@Login, "Erro ao fazer login.", Toast.LENGTH_LONG).show()
                     }else{
                         if(c.status == "false"){
                             Toast.makeText(this@Login, c.MSG, Toast.LENGTH_LONG).show()

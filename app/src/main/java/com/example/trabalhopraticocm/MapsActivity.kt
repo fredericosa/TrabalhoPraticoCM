@@ -1,18 +1,30 @@
 package com.example.trabalhopraticocm
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import com.example.trabalhopraticocm.api.EndPoints
+import com.example.trabalhopraticocm.api.Report
+import com.example.trabalhopraticocm.api.ServiceBuilder
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
+    private lateinit var shared_preferences: SharedPreferences
+    private lateinit var  reports: List<Report>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +33,32 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        shared_preferences = getSharedPreferences("shared_preferences", Context.MODE_PRIVATE)
+
+        val request = ServiceBuilder.buildService(EndPoints::class.java)
+        val call = request.getReports()
+        var coordenadas: LatLng
+        val user_id = shared_preferences.getInt("id", 0)
+
+        call.enqueue(object : Callback<List<Report>> {
+            override fun onResponse(call: Call<List<Report>>, response: Response<List<Report>>){
+                if (response.isSuccessful){
+                    reports = response.body()!!
+                    for (report in reports){
+                        coordenadas = LatLng(report.latitude.toDouble(), report.longitude.toDouble())
+                        if(report.user_id == user_id){
+                            mMap.addMarker(MarkerOptions().position(coordenadas).title(report.id.toString()).snippet(report.titulo + "-" + report.descr))
+                                    .setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                        }else{
+                            mMap.addMarker(MarkerOptions().position(coordenadas).title(report.id.toString()).snippet(report.titulo + "-" + report.descr))
+                        }
+                    }
+                }
+            }
+            override fun onFailure(call: Call<List<Report>>, t: Throwable){
+                Toast.makeText(this@MapsActivity,"${t.message}", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     /**

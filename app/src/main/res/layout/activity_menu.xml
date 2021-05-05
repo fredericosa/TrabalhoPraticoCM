@@ -24,4 +24,20 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/button_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="#A51731"
+        android:onClick="logout"
+        android:text="Sair"
+        app:backgroundTint="@color/design_default_color_error" />
 </RelativeLayout>
