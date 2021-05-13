@@ -79,7 +79,7 @@ class EditReport : AppCompatActivity() {
 
             finish()
         }
-
+        //delete button
         val button_delete = findViewById<Button>(R.id.button_delete)
         button_delete.setOnClickListener {
             val replyIntent = Intent()
