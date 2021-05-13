@@ -57,7 +57,7 @@ class EditReport : AppCompatActivity() {
         }
 
         createLocationRequest()
-
+        // edit button
         val button = findViewById<Button>(R.id.button_edit)
         button.setOnClickListener {
             val replyIntent = Intent()
