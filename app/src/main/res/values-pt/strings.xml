@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PointReport</string>
+    <string name="notas">notas</string>
+    <string name="entrar">entrar</string>
+    <string name="insere_titulo">Inserir título</string>
+    <string name="insere_conteudo">Inserir conteúdo</string>
+    <string name="guardar">guardar</string>
+    <string name="editar">editar</string>
+    <string name="remover">remover</string>
+    <string name="editar_titulo">Editar título</string>
+    <string name="editar_conteudo">Editar conteúdo</string>
+    <string name="lembrar">Lembrar</string>
+    <string name="mapa">Mapa</string>
+    <string name="reportar_problema">"Reportar Problema "</string>
+    <string name="sair">Sair</string>
+    <string name="inserir">inserir</string>
+</resources>

@@ -1,38 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ReportReport">
 
     <EditText
-        android:id="@+id/edit_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:fontFamily="sans-serif-light"
-        android:hint="@string/insere_titulo"
-        android:inputType="textAutoComplete"
-        android:layout_margin="15dp"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/edit_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:fontFamily="sans-serif-light"
-        android:hint="@string/insere_conteudo"
-        android:inputType="textAutoComplete"
-        android:layout_margin="15dp"
-        android:textSize="18sp" />
-
-    <Button
-        android:id="@+id/button_save"
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="@string/guardar"
-        android:background="@color/black" />
+        android:fontFamily="sans-serif-light"
+        android:hint="@string/insere_titulo"
+        android:inputType="textAutoComplete"
+        android:minHeight="16dp"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/descr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:fontFamily="sans-serif-light"
+        android:hint="@string/insere_conteudo"
+        android:inputType="textAutoComplete"
+        android:minHeight="16dp"
+        android:textSize="18sp" />
+
+
+    <Button
+        android:id="@+id/button_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@color/black"
+        android:onClick="report"
+        android:text="@string/inserir" />
 
 </LinearLayout>

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
+import com.example.trabalhopraticocm.MapsActivity.Companion.PARAM_ID2
 
 
 class EditNote : AppCompatActivity() {
@@ -27,7 +28,7 @@ class EditNote : AppCompatActivity() {
         val button_remove = findViewById<Button>(R.id.button_remove)
         button_remove.setOnClickListener {
             val replyIntent = Intent()
-            replyIntent.putExtra(PARAM_ID, id.toString())
+            replyIntent.putExtra(PARAM_ID2, id.toString())
             replyIntent.setAction("REMOVE")
             setResult(Activity.RESULT_OK, replyIntent)
             finish()
@@ -36,7 +37,7 @@ class EditNote : AppCompatActivity() {
         val button_update = findViewById<Button>(R.id.button_update)
         button_update.setOnClickListener {
             val replyIntent = Intent()
-            replyIntent.putExtra(PARAM_ID, id)
+            replyIntent.putExtra(PARAM_ID2, id)
             if (TextUtils.isEmpty(editTitle.text) || TextUtils.isEmpty(editContent.text)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
@@ -50,5 +51,13 @@ class EditNote : AppCompatActivity() {
             }
             finish()
         }
+    }
+
+    companion object {
+        const val STATUS = ""
+        const val DELETE_ID = "DELETE_ID"
+        const val EDIT_ID = "EDIT_ID"
+        const val EDIT_TITULO = "EDIT_TITULO"
+        const val EDIT_OBSERVACAO = "EDIT_OBSERVACAO"
     }
 }

@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">PointReport</string>
     <string name="title_activity_maps">Map</string>
+    <string name="notas">notes</string>
+    <string name="entrar">Enter</string>
+    <string name="insere_titulo">Insert title</string>
+    <string name="insere_conteudo">Insert content</string>
+    <string name="guardar">save</string>
+    <string name="editar">edit</string>
+    <string name="remover">delete</string>
+    <string name="editar_titulo">Edit title</string>
+    <string name="editar_conteudo">Edit content</string>
+    <string name="lembrar">Remember</string>
+    <string name="mapa">map</string>
+    <string name="reportar_problema">Report Problem</string>
+    <string name="sair">logout</string>
+    <string name="inserir">insert</string>
 </resources>

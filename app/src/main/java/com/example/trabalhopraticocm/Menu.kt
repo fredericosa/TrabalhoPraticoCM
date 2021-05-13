@@ -22,6 +22,11 @@ class Menu : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun reportReport(view: View){
+        val intent = Intent(this@Menu, ReportReport::class.java)
+        startActivity(intent)
+    }
+
     fun logout(view: View){
         val preferences_edit : SharedPreferences.Editor = preferences.edit()
         preferences_edit.clear()
