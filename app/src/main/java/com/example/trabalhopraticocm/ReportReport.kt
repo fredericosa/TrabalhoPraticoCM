@@ -68,7 +68,7 @@ class ReportReport : AppCompatActivity() {
         val titulo = titleEdit.text.toString()
         val descr = descrEdit.text.toString()
         val user_id = preferences.getInt("id", 0)
-
+        //call report endpoint
         val call = request.report(
             latitude = latitude.toString(),
             longitude = longitude.toString(),
