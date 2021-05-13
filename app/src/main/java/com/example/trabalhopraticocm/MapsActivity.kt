@@ -147,7 +147,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
                 //3
                 if(location != null){
                     lastLocation = location
-                    //Toast.makeText(this@MapsActivity, lastLocation.toString(), Toast.LENGTH_SHORT).show()
                     val currentLatLng = LatLng(location.latitude, location.longitude)
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
                 }
@@ -158,7 +157,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        // EDITAR E APAGAR NOTA
         if (requestCode == newEditReportActivityRequestCode && resultCode == Activity.RESULT_OK) {
             var id = data?.getStringExtra(EditReport.EDIT_ID)
             var id_delete = data?.getStringExtra(EditReport.DELETE_ID)

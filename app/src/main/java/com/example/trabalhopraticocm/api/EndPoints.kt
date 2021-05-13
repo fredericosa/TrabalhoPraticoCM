@@ -20,6 +20,7 @@ interface EndPoints {
     @POST("/myslim/api/user_login")
     fun login(@Field("username") username: String?, @Field("password") password: String?): Call<OutputLogin>
 
+    @Headers("Content-Type: application/json")
     @FormUrlEncoded
     @POST("/myslim/api/report_post")
     fun report(@Field("latitude") latitude: String?,

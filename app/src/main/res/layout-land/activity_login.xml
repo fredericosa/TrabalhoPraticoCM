@@ -29,21 +29,25 @@
         android:minHeight="16dp"
         android:textSize="18sp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
     <CheckBox
         android:id="@+id/lembrar"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="@string/lembrar" />
+        android:layout_weight="1"
+        android:text="@string/lembrar"
+        android:layout_marginLeft="10px"/>
 
-    <Button
-        android:id="@+id/button_start"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@color/black"
-        android:onClick="login"
-        android:text="Login" />
-
+        <Button
+            android:id="@+id/button_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:onClick="login"
+            android:layout_weight="1"
+            android:text="Login" />
+    </LinearLayout>
 
 </LinearLayout>
