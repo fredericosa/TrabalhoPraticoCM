@@ -16,17 +16,17 @@ class Menu : AppCompatActivity() {
         setContentView(R.layout.activity_menu)
         preferences = getSharedPreferences("preferences", Context.MODE_PRIVATE)
     }
-
+    //mapa
     fun mapaActivity(view: View){
         val intent = Intent(this@Menu, MapsActivity::class.java)
         startActivity(intent)
     }
-
+    //reportReport
     fun reportReport(view: View){
         val intent = Intent(this@Menu, ReportReport::class.java)
         startActivity(intent)
     }
-
+    //logout
     fun logout(view: View){
         val preferences_edit : SharedPreferences.Editor = preferences.edit()
         preferences_edit.clear()
